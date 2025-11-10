@@ -1,5 +1,24 @@
 import Link from "next/link";
 import css from "./ProfilePage.module.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Notehub",
+  description: "NoteHub — app user profile",
+  openGraph: {
+    title: "Notehub",
+    description: "NoteHub — app user profile",
+    url: "https://09-auth-three-red.vercel.app/profile",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NoteHub image",
+      },
+    ],
+  },
+};
 
 function Profile() {
   return (
@@ -13,8 +32,8 @@ function Profile() {
             </Link>
           </div>
           <div className={css.avatarWrapper}>
-            <img
-              src="Avatar"
+            <Image
+              src={user.avatar}
               alt="User Avatar"
               width={120}
               height={120}
@@ -22,8 +41,8 @@ function Profile() {
             />
           </div>
           <div className={css.profileInfo}>
-            <p>Username: your_username</p>
-            <p>Email: your_email@example.com</p>
+            <p>Username: {user.username}</p>
+            <p>Email: {user.email}</p>
           </div>
         </div>
       </main>
