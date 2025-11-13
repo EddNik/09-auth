@@ -1,3 +1,5 @@
+"use client";
+
 import { LoginRequest } from "@/types/user";
 import css from "./SignInPage.module.css";
 import { login } from "@/lib/api/clientApi";
