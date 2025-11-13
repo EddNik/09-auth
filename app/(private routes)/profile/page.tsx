@@ -1,6 +1,7 @@
 import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Notehub",

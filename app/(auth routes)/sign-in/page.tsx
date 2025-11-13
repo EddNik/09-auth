@@ -1,10 +1,36 @@
+import { LoginRequest } from "@/types/user";
 import css from "./SignInPage.module.css";
+import { login } from "@/lib/api/clientApi";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { ApiError } from "@/app/api/api";
 
 function SignInPage() {
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  async function handleSubmit(formData: FormData) {
+    try {
+      const formValues = Object.fromEntries(formData) as LoginRequest;
+      const response = await login(formValues);
+      if (response) {
+        router.push("/profile");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          "Oops... some error"
+      );
+    }
+  }
+
   return (
     <>
       <main className={css.mainContent}>
-        <form className={css.form}>
+        <form className={css.form} action={handleSubmit}>
           <h1 className={css.formTitle}>Sign in</h1>
 
           <div className={css.formGroup}>
@@ -35,7 +61,7 @@ function SignInPage() {
             </button>
           </div>
 
-          <p className={css.error}>{error}</p>
+          {error && <p className={css.error}>{error}</p>}
         </form>
       </main>
     </>

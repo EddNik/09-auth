@@ -1,0 +1,46 @@
+import { Note, NoteTag } from "@/types/notes";
+import { cookies } from "next/headers";
+import { api } from "./api";
+
+interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
+export async function fetchNotes(
+  query: string,
+  page: number,
+  tag?: NoteTag
+): Promise<FetchNotesResponse> {
+  const cookieStore = await cookies();
+
+  const options = {
+    params: {
+      page,
+      perPage: 12,
+      tag,
+      ...(query.trim() !== "" && { search: query.trim() }),
+    },
+    headers: { Cookie: cookieStore.toString() },
+  };
+
+  try {
+    const { data } = await api.get<FetchNotesResponse>("/notes", options);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchNoteById(id: Note["id"]): Promise<Note> {
+  const cookieStore = await cookies();
+  const options = {
+    headers: { Cookie: cookieStore.toString() },
+  };
+  try {
+    const { data: note } = await api.get<Note>(`/notes/${id}`, options);
+    return note;
+  } catch (error) {
+    throw error;
+  }
+}

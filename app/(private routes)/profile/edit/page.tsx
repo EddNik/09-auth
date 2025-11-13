@@ -1,4 +1,5 @@
 import css from "./EditProfilePage.module.css";
+import Image from "next/image";
 
 function EditProfilePage() {
   return (
@@ -7,8 +8,8 @@ function EditProfilePage() {
         <div className={css.profileCard}>
           <h1 className={css.formTitle}>Edit Profile</h1>
 
-          <img
-            src="avatar"
+          <Image
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
