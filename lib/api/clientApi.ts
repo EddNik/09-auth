@@ -9,8 +9,8 @@ interface FetchNotesResponse {
 
 export async function fetchNotes(
   query: string,
-  page: number,
-  tag?: NoteTag
+  tag?: NoteTag,
+  page?: number
 ): Promise<FetchNotesResponse> {
   const options = {
     params: {
@@ -94,12 +94,15 @@ export async function checkSession(): Promise<boolean> {
   }
 }
 
-export async function getMe(): Promise<void> {
+export async function getMe(): Promise<User> {
   try {
+    const { data } = await api.get<User>("/users/me");
+    return data;
   } catch (error) {
     throw error;
   }
 }
+
 export async function updateMe(): Promise<void> {
   try {
   } catch (error) {
