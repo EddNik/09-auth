@@ -1,7 +1,7 @@
 import { LoginRequest } from "@/types/user";
 import css from "./SignInPage.module.css";
 import { login } from "@/lib/api/clientApi";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApiError } from "@/app/api/api";
 

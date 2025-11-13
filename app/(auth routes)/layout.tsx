@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
-import css from "./AuthNavigation.module.css";
+import { ReactNode, useEffect, useRef } from "react";
+import css from "./LayoutNotes.module.css";
 import { useRouter } from "next/navigation";
 
 function SignLayout({ children }: { children: ReactNode }) {
