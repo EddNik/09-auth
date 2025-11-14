@@ -76,12 +76,9 @@ export const config = {
   matcher: [
     "/profile/:path*",
     "/notes/:path*",
-    "/notes/filter/:path*",
-    "/notes/action/create",
     "/sign-in",
     "/sign-up",
-    "/register",
-    "/login",
-    "/((?!api).*)",
+    "/notes/filter/:path*",
+    "/notes/action/create",
   ],
 };
