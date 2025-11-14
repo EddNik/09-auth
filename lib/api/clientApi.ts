@@ -81,7 +81,7 @@ export async function login(request: LoginRequest): Promise<User> {
 }
 export async function logout(): Promise<void> {
   try {
-    await api.post<User>("/auth/logout");
+    await api.post("/auth/logout");
   } catch (error) {
     throw error;
   }
