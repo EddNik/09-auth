@@ -75,12 +75,11 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/((?!api).*)",
-    // "/profile/:path*",
-    // "/notes/:path*",
-    // "/sign-in",
-    // "/sign-up",
-    // "/notes/filter/:path*",
-    // "/notes/action/create",
-    // "/((?!api).*)",
+    "/profile/:path*",
+    "/notes/:path*",
+    "/sign-in",
+    "/sign-up",
+    "/notes/filter/:path*",
+    "/notes/action/create",
   ],
 };
