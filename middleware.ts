@@ -80,6 +80,6 @@ export const config = {
     "/sign-up",
     "/notes/filter/:path*",
     "/notes/action/create",
-    "/((?!api).*)",
+    // "/((?!api).*)",
   ],
 };
