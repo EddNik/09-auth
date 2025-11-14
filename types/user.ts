@@ -14,3 +14,12 @@ export type LoginRequest = {
   email: string;
   password: string;
 };
+
+export interface CheckSessionRequest {
+  success: boolean;
+}
+
+export interface UpdateMeRequest {
+  email: string;
+  username: string;
+}

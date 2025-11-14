@@ -1,6 +1,12 @@
 import { NewNote, Note, NoteTag } from "@/types/notes";
 import { api } from "./api";
-import { LoginRequest, RegisterRequest, User } from "@/types/user";
+import {
+  CheckSessionRequest,
+  LoginRequest,
+  RegisterRequest,
+  UpdateMeRequest,
+  User,
+} from "@/types/user";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -81,10 +87,6 @@ export async function logout(): Promise<void> {
   }
 }
 
-interface CheckSessionRequest {
-  success: boolean;
-}
-
 export async function checkSession(): Promise<boolean> {
   try {
     const response = await api.get<CheckSessionRequest>("/auth/session");
@@ -103,8 +105,10 @@ export async function getMe(): Promise<User> {
   }
 }
 
-export async function updateMe(): Promise<void> {
+export async function updateMe(request: UpdateMeRequest): Promise<User> {
   try {
+    const { data } = await api.patch<User>("/users/me", request);
+    return data;
   } catch (error) {
     throw error;
   }

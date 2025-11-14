@@ -1,6 +1,7 @@
 import { Note, NoteTag } from "@/types/notes";
 import { cookies } from "next/headers";
 import { api } from "./api";
+import { CheckSessionRequest, User } from "@/types/user";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -40,6 +41,35 @@ export async function fetchNoteById(id: Note["id"]): Promise<Note> {
   try {
     const { data: note } = await api.get<Note>(`/notes/${id}`, options);
     return note;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getMe(): Promise<User> {
+  const cookieStore = await cookies();
+  const options = {
+    headers: { Cookie: cookieStore.toString() },
+  };
+  try {
+    const { data } = await api.get<User>("/users/me", options);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkSession(): Promise<boolean> {
+  const cookieStore = await cookies();
+  const options = {
+    headers: { Cookie: cookieStore.toString() },
+  };
+  try {
+    const response = await api.get<CheckSessionRequest>(
+      "/auth/session",
+      options
+    );
+    return response.data.success;
   } catch (error) {
     throw error;
   }

@@ -1,7 +1,14 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import css from "./EditProfilePage.module.css";
 import Image from "next/image";
+import { useAuthStore } from "@/lib/store/authStore";
 
 function EditProfilePage() {
+  const { user, setUser } = useAuthStore();
+  const router = useRouter();
+
   return (
     <>
       <main className={css.mainContent}>
