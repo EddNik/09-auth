@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
   const { pathname } = request.nextUrl;
+
   const isPrivateRoute = privateRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -17,6 +18,19 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  //public (sign-in, sign-up ...)
+  if (isPublicRoute) {
+    if (accessToken) {
+      return NextResponse.redirect(new URL("/", request.url), {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+    }
+    return NextResponse.next();
+  }
+
+  //private
   if (isPrivateRoute) {
     if (!accessToken) {
       if (refreshToken) {
@@ -40,47 +54,22 @@ export async function middleware(request: NextRequest) {
               cookieStore.set("refreshToken", parsed.refreshToken, options);
           }
 
-          if (isPrivateRoute) {
-            return NextResponse.next({
-              headers: {
-                Cookie: cookieStore.toString(),
-              },
-            });
-          }
-
-          if (isPublicRoute) {
-            return NextResponse.redirect(new URL("/", request.url), {
-              headers: {
-                Cookie: cookieStore.toString(),
-              },
-            });
-          }
+          return NextResponse.next({
+            headers: {
+              Cookie: cookieStore.toString(),
+            },
+          });
         }
       }
-      // Якщо refreshToken або сесії немає:
-      // публічний маршрут — дозволяємо доступ
-      if (isPublicRoute) {
-        return NextResponse.next();
-      }
 
-      // приватний маршрут — редірект на сторінку входу
-      if (isPrivateRoute) {
-        return NextResponse.redirect(new URL("/sign-in", request.url));
-      }
-
-      // немає жодного токена — редірект на сторінку входу
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
-    // Якщо accessToken існує:
-    // публічний маршрут — виконуємо редірект на головну
-    if (isPublicRoute) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-    // приватний маршрут — дозволяємо доступ
-    if (isPrivateRoute) {
-      return NextResponse.next();
-    }
+
+    return NextResponse.next();
   }
+
+  //another routes
+  return NextResponse.next();
 }
 
 export const config = {
