@@ -1,12 +1,6 @@
 import { NewNote, Note, NoteTag } from "@/types/note";
 import { api } from "./api";
-import {
-  CheckSessionRequest,
-  LoginRequest,
-  RegisterRequest,
-  UpdateMeRequest,
-  User,
-} from "@/types/user";
+import { User } from "@/types/user";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -62,6 +56,12 @@ export async function deleteNote(id: Note["id"]): Promise<Note> {
   }
 }
 
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  username: string;
+};
+
 export async function register(request: RegisterRequest): Promise<User> {
   try {
     const response = await api.post<User>("/auth/register", request);
@@ -70,6 +70,11 @@ export async function register(request: RegisterRequest): Promise<User> {
     throw error;
   }
 }
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
 
 export async function login(request: LoginRequest): Promise<User> {
   try {
@@ -87,6 +92,10 @@ export async function logout(): Promise<void> {
   }
 }
 
+export interface CheckSessionRequest {
+  success: boolean;
+}
+
 export async function checkSession(): Promise<boolean> {
   try {
     const response = await api.get<CheckSessionRequest>("/auth/session");
@@ -96,6 +105,10 @@ export async function checkSession(): Promise<boolean> {
   }
 }
 
+export interface UpdateMeRequest {
+  email: string;
+  username: string;
+}
 export async function getMe(): Promise<User> {
   try {
     const { data } = await api.get<User>("/users/me");

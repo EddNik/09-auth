@@ -4,9 +4,8 @@ import { useRouter } from "next/navigation";
 import css from "./EditProfilePage.module.css";
 import Image from "next/image";
 import { useAuthStore } from "@/lib/store/authStore";
-import { updateMe } from "@/lib/api/clientApi";
+import { RegisterRequest, updateMe } from "@/lib/api/clientApi";
 import { ApiError } from "@/app/api/api";
-import { RegisterRequest } from "@/types/user";
 import { useState } from "react";
 
 function EditProfilePage() {
@@ -86,7 +85,7 @@ function EditProfilePage() {
 
             {error && <p className={css.error}>{error}</p>}
 
-            <p>Email: user_email@example.com</p>
+            <p>Email: {user?.email}</p>
 
             <div className={css.actions}>
               <button type="submit" className={css.saveButton}>

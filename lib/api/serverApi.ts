@@ -1,8 +1,7 @@
 import { Note, NoteTag } from "@/types/note";
 import { cookies } from "next/headers";
 import { api } from "./api";
-import { CheckSessionRequest, User } from "@/types/user";
-import { AxiosResponse } from "axios";
+import { User } from "@/types/user";
 
 interface FetchNotesResponse {
   notes: Note[];
