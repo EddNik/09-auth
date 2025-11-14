@@ -2,6 +2,7 @@ import { Note, NoteTag } from "@/types/notes";
 import { cookies } from "next/headers";
 import { api } from "./api";
 import { CheckSessionRequest, User } from "@/types/user";
+import { AxiosResponse } from "axios";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -46,7 +47,7 @@ export async function fetchNoteById(id: Note["id"]): Promise<Note> {
   }
 }
 
-export async function getMe(): Promise<User> {
+export async function getServerMe(): Promise<User> {
   const cookieStore = await cookies();
   const options = {
     headers: { Cookie: cookieStore.toString() },
@@ -59,17 +60,14 @@ export async function getMe(): Promise<User> {
   }
 }
 
-export async function checkSession(): Promise<boolean> {
+export async function checkServerSession() {
   const cookieStore = await cookies();
   const options = {
     headers: { Cookie: cookieStore.toString() },
   };
   try {
-    const response = await api.get<CheckSessionRequest>(
-      "/auth/session",
-      options
-    );
-    return response.data.success;
+    const response = await api.get("/auth/session", options);
+    return response;
   } catch (error) {
     throw error;
   }

@@ -8,3 +8,6 @@ export const tags: NoteTag[] = [
   "Meeting",
   "Shopping",
 ];
+
+export const privateRoutes = ["/profile", "/notes"];
+export const publicRoutes = ["/sign-in", "/sign-up"];

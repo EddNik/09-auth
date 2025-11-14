@@ -9,6 +9,13 @@ function EditProfilePage() {
   const { user, setUser } = useAuthStore();
   const router = useRouter();
 
+  const handleCancel = () => {
+    const answer = confirm("Are you sure?");
+    if (answer) {
+      router.push("/profile");
+    }
+  };
+
   return (
     <>
       <main className={css.mainContent}>
@@ -35,7 +42,11 @@ function EditProfilePage() {
               <button type="submit" className={css.saveButton}>
                 Save
               </button>
-              <button type="button" className={css.cancelButton}>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className={css.cancelButton}
+              >
                 Cancel
               </button>
             </div>
