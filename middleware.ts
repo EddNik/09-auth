@@ -78,9 +78,10 @@ export const config = {
     "/notes/:path*",
     "/notes/filter/:path*",
     "/notes/action/create",
-    // "/sign-in",
-    // "/sign-up",
+    "/sign-in",
+    "/sign-up",
     "/register",
     "/login",
+    "/((?!api).*)",
   ],
 };
