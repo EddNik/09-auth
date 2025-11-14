@@ -1,4 +1,4 @@
-import { Note, NoteTag } from "@/types/notes";
+import { Note, NoteTag } from "@/types/note";
 import { cookies } from "next/headers";
 import { api } from "./api";
 import { CheckSessionRequest, User } from "@/types/user";

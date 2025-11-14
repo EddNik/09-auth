@@ -1,6 +1,6 @@
 "use client";
 
-import { NoteTag } from "@/types/notes";
+import { NoteTag } from "@/types/note";
 import css from "./NotesPage.module.css";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";

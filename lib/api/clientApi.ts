@@ -1,4 +1,4 @@
-import { NewNote, Note, NoteTag } from "@/types/notes";
+import { NewNote, Note, NoteTag } from "@/types/note";
 import { api } from "./api";
 import {
   CheckSessionRequest,

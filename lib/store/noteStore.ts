@@ -1,4 +1,4 @@
-import { NewNote, NoteDraftStore } from "@/types/notes";
+import { NewNote, NoteDraftStore } from "@/types/note";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

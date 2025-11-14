@@ -1,4 +1,4 @@
-import { NoteTag } from "@/types/notes";
+import { NoteTag } from "@/types/note";
 
 export const tags: NoteTag[] = [
   "Choose category",
