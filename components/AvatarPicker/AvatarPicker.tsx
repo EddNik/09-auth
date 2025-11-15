@@ -70,12 +70,13 @@ const AvatarPicker = ({ profilePhotoUrl }: AvatarPickerProps) => {
           className={css.input}
         />
       </label>
-
-      {previewUrl && (
-        <button className={css.remove} onClick={handleRemove}>
-          ❌
-        </button>
-      )}
+      <div>
+        {previewUrl && (
+          <button className={css.remove} onClick={handleRemove}>
+            ❌
+          </button>
+        )}
+      </div>
 
       {error && <p>{error}</p>}
     </div>
