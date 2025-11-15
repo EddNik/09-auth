@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
   //public (sign-in, sign-up ...)
   if (isPublicRoute) {
     if (accessToken) {
-      return NextResponse.redirect(new URL("/", request.url), {
+      return NextResponse.redirect(new URL("/notes", request.url), {
         headers: {
           Cookie: cookieStore.toString(),
         },
