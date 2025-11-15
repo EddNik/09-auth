@@ -1,11 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import css from "./AvatarPicker.module.css";
 
-const AvatarPicker = () => {
-  const [error, setError] = useState("");
-  const [previewUrl, setPreviewUrl] = useState("");
+type AvatarPickerProps = {
+  profilePhotoUrl?: string;
+};
+
+const AvatarPicker = ({ profilePhotoUrl }: AvatarPickerProps) => {
+  const [error, setError] = useState<string>("");
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (profilePhotoUrl) {
+      setTimeout(() => {
+        setPreviewUrl(profilePhotoUrl);
+      });
+    }
+  }, [profilePhotoUrl]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -30,22 +43,40 @@ const AvatarPicker = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleRemove = () => {
+    setPreviewUrl("");
+  };
   return (
-    <div>
-      {previewUrl ? (
+    <div className={css.picker}>
+      {previewUrl && (
         <Image
           src={previewUrl}
           alt="Preview"
           width={300}
           height={200}
-          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          className={css.avatar}
+          style={{ objectFit: "cover" }}
         />
-      ) : (
-        <label>
-          📷 Choose photo
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-        </label>
       )}
+      <label
+        className={previewUrl ? `${css.wrapper} ${css.reload}` : css.wrapper}
+      >
+        📷 Choose photo
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className={css.input}
+        />
+      </label>
+
+      {previewUrl && (
+        <button className={css.remove} onClick={handleRemove}>
+          ❌
+        </button>
+      )}
+
       {error && <p>{error}</p>}
     </div>
   );
