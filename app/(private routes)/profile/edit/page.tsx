@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import css from "./EditProfilePage.module.css";
-import Image from "next/image";
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateMe, UpdateMeRequest } from "@/lib/api/clientApi";
 import { ApiError } from "@/app/api/api";
