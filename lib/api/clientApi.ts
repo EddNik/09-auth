@@ -115,9 +115,7 @@ export async function getMe(): Promise<User> {
 }
 
 export type UpdateMeRequest = {
-  avatar: string;
   username: string;
-  email: string;
 };
 
 export async function updateMe(request: UpdateMeRequest): Promise<User> {
