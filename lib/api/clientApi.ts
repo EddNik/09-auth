@@ -105,10 +105,6 @@ export async function checkSession(): Promise<boolean> {
   }
 }
 
-export interface UpdateMeRequest {
-  email: string;
-  username: string;
-}
 export async function getMe(): Promise<User> {
   try {
     const { data } = await api.get<User>("/users/me");
@@ -117,6 +113,12 @@ export async function getMe(): Promise<User> {
     throw error;
   }
 }
+
+export type UpdateMeRequest = {
+  avatar: string;
+  username: string;
+  email: string;
+};
 
 export async function updateMe(request: UpdateMeRequest): Promise<User> {
   try {

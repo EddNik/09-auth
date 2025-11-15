@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import css from "./EditProfilePage.module.css";
 import Image from "next/image";
 import { useAuthStore } from "@/lib/store/authStore";
-import { RegisterRequest, updateMe } from "@/lib/api/clientApi";
+import { updateMe, UpdateMeRequest } from "@/lib/api/clientApi";
 import { ApiError } from "@/app/api/api";
 import { useState } from "react";
 
@@ -17,13 +17,13 @@ function EditProfilePage() {
   const handleCancel = () => {
     const answer = confirm("Are you sure?");
     if (answer) {
-      router.push("/profile");
+      router.back();
     }
   };
 
   async function handleSubmit(formData: FormData) {
     try {
-      const formValues = Object.fromEntries(formData) as RegisterRequest;
+      const formValues = Object.fromEntries(formData) as UpdateMeRequest;
       const response = await updateMe(formValues);
       if (response) {
         setUser(response);
@@ -40,11 +40,11 @@ function EditProfilePage() {
     }
   }
 
-  async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     setUsername(value);
-    if (value.trim().length < 1) {
-      setError("Name must be at least 1 characters long");
+    if (value.trim().length < 3) {
+      setError("Name must be at least 3 characters long");
     }
   }
 
@@ -71,15 +71,7 @@ function EditProfilePage() {
                 type="text"
                 className={css.input}
                 onChange={handleChange}
-                defaultValue={username}
-              />
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className={css.input}
-                defaultValue={user?.email}
+                value={username}
               />
             </div>
 

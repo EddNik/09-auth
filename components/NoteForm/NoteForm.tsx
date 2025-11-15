@@ -20,6 +20,7 @@ function NoteForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       router.back();
+      clearDraft();
     },
     onError: (error) => {
       if (draft.tag === "Choose category") {
