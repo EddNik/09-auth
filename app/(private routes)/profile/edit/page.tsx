@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { updateMe, UpdateMeRequest } from "@/lib/api/clientApi";
 import { ApiError } from "@/app/api/api";
 import { useState } from "react";
+import AvatarPicker from "@/components/AvatarPicker/AvatarPicker";
 
 function EditProfilePage() {
   const { user, setUser } = useAuthStore();
@@ -54,13 +55,15 @@ function EditProfilePage() {
         <div className={css.profileCard}>
           <h1 className={css.formTitle}>Edit Profile</h1>
 
-          <Image
+          <AvatarPicker />
+
+          {/* <Image
             src={user?.avatar || "/avatar.png"}
             alt="User Avatar"
             width={120}
             height={120}
             className={css.avatar}
-          />
+          /> */}
 
           <form className={css.profileInfo} action={handleSubmit}>
             <div className={css.usernameWrapper}>
